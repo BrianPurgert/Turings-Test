@@ -1,6 +1,6 @@
 # Turing's Test
 
-Test your AI to see if they 
+Test your AI to see if your Machine can think can
 
 ### Components
 
