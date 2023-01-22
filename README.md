@@ -1,6 +1,6 @@
 # Turing's Test
 
-Test your cha
+Test your AI 
 
 ### Components
 
