@@ -1,24 +1,43 @@
-import type { AppProps } from 'next/app'
-import { Analytics } from '@vercel/analytics/react'
-import type { LayoutProps } from '@vercel/examples-ui/layout'
+import { useState } from 'react';
+import NextApp, { AppProps, AppContext } from 'next/app';
+import { getCookie, setCookie } from 'cookies-next';
+import Head from 'next/head';
+import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
-import { getLayout } from '@vercel/examples-ui'
+export default function App(props: AppProps & { colorScheme: ColorScheme }) {
+  const { Component, pageProps } = props;
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
 
-import '@vercel/examples-ui/globals.css'
-
-function App({ Component, pageProps }: AppProps) {
-  const Layout = getLayout<LayoutProps>(Component)
+  const toggleColorScheme = (value?: ColorScheme) => {
+    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+    setColorScheme(nextColorScheme);
+    setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+  };
 
   return (
-    <Layout
-      title="ai-chatgpt"
-      path="solutions/ai-chatgpt"
-      description="ai-chatgpt"
-    >
-      <Component {...pageProps} />
-      <Analytics />
-    </Layout>
-  )
+    <>
+      <Head>
+        <title>Mantine next example</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <link rel="shortcut icon" href="/favicon.svg" />
+      </Head>
+
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+          <NotificationsProvider>
+            <Component {...pageProps} />
+          </NotificationsProvider>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </>
+  );
 }
 
-export default App
+App.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await NextApp.getInitialProps(appContext);
+  return {
+    ...appProps,
+    colorScheme: getCookie('mantine-color-scheme', appContext.ctx) || 'dark',
+  };
+};

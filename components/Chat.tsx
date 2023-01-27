@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react'
-import { Button } from './Button'
-import { type Message, ChatLine, LoadingChatLine } from './ChatLine'
-import { useCookies } from 'react-cookie'
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { Button } from './Button';
+import { type Message, ChatLine, LoadingChatLine } from './ChatLine';
 
-const COOKIE_NAME = 'nextjs-example-ai-chat-gpt3'
+const COOKIE_NAME = 'nextjs-example-ai-chat-gpt3';
 
 // default first message to display in UI (not necessary to define the prompt)
 export const initialMessages: Message[] = [
   {
     who: 'bot',
-    message: 'Hi! I’m A friendly AI assistant. Ask me anything!',
+    message: 'Hi! I’m a Human, are you a Human?',
   },
-]
+];
 
 const InputMessage = ({ input, setInput, sendMessage }: any) => (
   <div className="mt-6 flex clear-both">
@@ -23,50 +23,50 @@ const InputMessage = ({ input, setInput, sendMessage }: any) => (
       value={input}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
-          sendMessage(input)
-          setInput('')
+          sendMessage(input);
+          setInput('');
         }
       }}
       onChange={(e) => {
-        setInput(e.target.value)
+        setInput(e.target.value);
       }}
     />
     <Button
       type="submit"
       className="ml-4 flex-none"
       onClick={() => {
-        sendMessage(input)
-        setInput('')
+        sendMessage(input);
+        setInput('');
       }}
     >
       Say
     </Button>
   </div>
-)
+);
 
 export function Chat() {
-  const [messages, setMessages] = useState<Message[]>(initialMessages)
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [cookie, setCookie] = useCookies([COOKIE_NAME])
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [cookie, setCookie] = useCookies([COOKIE_NAME]);
 
   useEffect(() => {
     if (!cookie[COOKIE_NAME]) {
       // generate a semi random short id
-      const randomId = Math.random().toString(36).substring(7)
-      setCookie(COOKIE_NAME, randomId)
+      const randomId = Math.random().toString(36).substring(7);
+      setCookie(COOKIE_NAME, randomId);
     }
-  }, [cookie, setCookie])
+  }, [cookie, setCookie]);
 
   // send message to API /api/chat endpoint
   const sendMessage = async (message: string) => {
-    setLoading(true)
+    setLoading(true);
     const newMessages = [
       ...messages,
-      { message: message, who: 'user' } as Message,
-    ]
-    setMessages(newMessages)
-    const last10messages = newMessages.slice(-10)
+      { message, who: 'user' } as Message,
+    ];
+    setMessages(newMessages);
+    const last10messages = newMessages.slice(-10);
 
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -77,18 +77,18 @@ export function Chat() {
         messages: last10messages,
         user: cookie[COOKIE_NAME],
       }),
-    })
-    const data = await response.json()
+    });
+    const data = await response.json();
 
     // strip out white spaces from the bot message
-    const botNewMessage = data.text.trim()
+    const botNewMessage = data.text.trim();
 
     setMessages([
       ...newMessages,
       { message: botNewMessage, who: 'bot' } as Message,
-    ])
-    setLoading(false)
-  }
+    ]);
+    setLoading(false);
+  };
 
   return (
     <div className="rounded-2xl border-zinc-100  lg:border lg:p-6">
@@ -109,5 +109,5 @@ export function Chat() {
         sendMessage={sendMessage}
       />
     </div>
-  )
+  );
 }
