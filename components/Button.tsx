@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 export function Button({ className, ...props }: any) {
   return (
@@ -10,5 +10,5 @@ export function Button({ className, ...props }: any) {
       )}
       {...props}
     />
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import { Chat } from '../components/Chat'
-import { Welcome } from '../components/Welcome/Welcome'
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle'
+import { Chat } from '../components/Chat';
+import { Welcome } from '../components/Welcome/Welcome';
+import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 
 export default function HomePage() {
   return (
     <>
       <Welcome />
       <ColorSchemeToggle />
-        <Chat />
+      <Chat />
     </>
   );
 }

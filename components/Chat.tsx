@@ -9,7 +9,8 @@ const COOKIE_NAME = 'nextjs-example-ai-chat-gpt3';
 export const initialMessages: Message[] = [
   {
     who: 'bot',
-    message: 'Hi! I’m a Human, are you a Human?',
+    message:
+      'lets pla`y a game, for this game you need to prove to me you are human and I will try and convince you that I',
   },
 ];
 
@@ -61,10 +62,7 @@ export function Chat() {
   // send message to API /api/chat endpoint
   const sendMessage = async (message: string) => {
     setLoading(true);
-    const newMessages = [
-      ...messages,
-      { message, who: 'user' } as Message,
-    ];
+    const newMessages = [...messages, { message, who: 'user' } as Message];
     setMessages(newMessages);
     const last10messages = newMessages.slice(-10);
 
@@ -83,10 +81,7 @@ export function Chat() {
     // strip out white spaces from the bot message
     const botNewMessage = data.text.trim();
 
-    setMessages([
-      ...newMessages,
-      { message: botNewMessage, who: 'bot' } as Message,
-    ]);
+    setMessages([...newMessages, { message: botNewMessage, who: 'bot' } as Message]);
     setLoading(false);
   };
 
@@ -103,11 +98,7 @@ export function Chat() {
           Type a message to start the conversation
         </span>
       )}
-      <InputMessage
-        input={input}
-        setInput={setInput}
-        sendMessage={sendMessage}
-      />
+      <InputMessage input={input} setInput={setInput} sendMessage={sendMessage} />
     </div>
   );
 }
