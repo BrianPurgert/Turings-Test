@@ -27,6 +27,7 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons';
+import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -92,7 +93,7 @@ const mockdata = [
   {
     icon: IconCode,
     title: 'Open source',
-    description: 'This Pokémon’s cry is very loud and distracting',
+    description: 'not actually open source',
   },
   {
     icon: IconCoin,
@@ -148,7 +149,7 @@ export function HeaderMegaMenu() {
     <Box pb={120}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: '100%' }}>
-          <text>Turing's Test logo</text>
+          <text>Turings Test logo</text>
 
           <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
             <a href="#" className={classes.link}>
@@ -208,6 +209,7 @@ export function HeaderMegaMenu() {
           </Group>
 
           <Group className={classes.hiddenMobile}>
+            <ColorSchemeToggle />
             <Button variant="default">Log in</Button>
             <Button>Sign up</Button>
           </Group>

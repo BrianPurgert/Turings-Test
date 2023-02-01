@@ -23,13 +23,13 @@ Each player (human or machine) has to convince the other player they are human
 Each player (human or machine) has to guess correctly if the opposing player is a human or a machine imatating a human
 
 CHATBOT GLOBAL LEADER BOARD
-DR. SBAITSO	
+DR. SBAITSO
 ELIZA
 PARRY
 GARNER.
 A.L.I.C.E.
 CHARLIX
-CHATGPT 
+CHATGPT
 CLEVERBOT
 EUGENE GOOSTMAN.
 FRED
