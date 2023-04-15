@@ -28,6 +28,7 @@ import {
   IconChevronDown,
 } from '@tabler/icons';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import Image from 'next/image';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -98,7 +99,7 @@ export function HeaderMegaMenu() {
     <Box pb={120}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: '100%' }}>
-          <text>Turings Test logo</text>
+          <Image src="/favicon.svg" alt="Robot" height={30} width={30} />
 
           <Group className={classes.hiddenMobile}>
             <ColorSchemeToggle />
