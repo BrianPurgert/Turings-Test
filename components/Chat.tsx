@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button } from './Button';
-import { type Message, ChatLine, LoadingChatLine } from './ChatLine';
+import { ChatLine, LoadingChatLine, type Message } from './ChatLine';
 
 const COOKIE_NAME = 'nextjs-example-ai-chat-gpt3';
+import { Textarea } from '@mantine/core';
+import { Card } from "@mantine/core";
+
 
 // default first message to display in UI (not necessary to define the prompt)
 export const initialMessages: Message[] = [
@@ -15,8 +18,9 @@ export const initialMessages: Message[] = [
 
 const InputMessage = ({ input, setInput, sendMessage }: any) => (
   <div className="mt-6 flex clear-both">
-    <input
-      type="text"
+    
+    <Textarea
+     
       aria-label="chat input"
       required
       className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 sm:text-sm"
@@ -41,6 +45,7 @@ const InputMessage = ({ input, setInput, sendMessage }: any) => (
     >
       Say
     </Button>
+    
   </div>
 );
 
@@ -52,13 +57,11 @@ export function Chat() {
 
   useEffect(() => {
     if (!cookie[COOKIE_NAME]) {
-      // generate a semi random short id
       const randomId = Math.random().toString(36).substring(7);
       setCookie(COOKIE_NAME, randomId);
     }
   }, [cookie, setCookie]);
-
-  // send message to API /api/chat endpoint
+  
   const sendMessage = async (message: string) => {
     setLoading(true);
     const newMessages = [...messages, { message, who: 'user' } as Message];
@@ -85,11 +88,16 @@ export function Chat() {
   };
 
   return (
-    <div className="rounded-2xl border-zinc-100  lg:border lg:p-6">
+   
+      <Card shadow="sm" radius="md" withBorder>
+        <Card.Section>
+     
+        
+      
       {messages.map(({ message, who }, index) => (
         <ChatLine key={index} who={who} message={message} />
       ))}
-
+        </Card.Section>
       {loading && <LoadingChatLine />}
 
       {messages.length < 2 && (
@@ -98,6 +106,6 @@ export function Chat() {
         </span>
       )}
       <InputMessage input={input} setInput={setInput} sendMessage={sendMessage} />
-    </div>
+    </Card>
   );
 }

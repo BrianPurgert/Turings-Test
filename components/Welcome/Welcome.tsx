@@ -1,7 +1,6 @@
-import { Title, Text, Container } from '@mantine/core';
 import useStyles from './Welcome.styles';
 import { Chat } from '../Chat';
-import { Image, Grid, Skeleton, Center } from '@mantine/core';
+import { Center, Container, Grid, Image, Skeleton } from '@mantine/core';
 
 const child = <Skeleton height={380} radius="xs" animate={false} />;
 

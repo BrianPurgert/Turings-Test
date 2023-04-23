@@ -27,6 +27,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <NotificationsProvider>
+            <HeaderMegaMenu />
             <Component {...pageProps} />
           </NotificationsProvider>
         </MantineProvider>

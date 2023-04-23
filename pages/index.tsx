@@ -5,7 +5,6 @@ import { HeaderMegaMenu } from '../components/HeaderMegaMenu/HeaderMegaMenu';
 export default function HomePage() {
   return (
     <>
-      <HeaderMegaMenu />
       <Welcome />
     </>
   );
